@@ -5,33 +5,45 @@ How?:
   - methods
     - initialize: an array of all alphabets
     - caesar_cipher(string, shift_number)
+
+  TO FIX -
+  Do Not Replace what's already replaced
+
+  Handle -
+  - Upper Case and Lower Case Chars
+  - Don't change the position or Char in a string
+  - Ignore Special Char
 =end
 
 class BasicCryptography
   attr_accessor :aplphabets
 
   def initialize
-    @alphabets = ('a'..'z').to_a
-  end
-
-  def isChar(ch)
-    !ch.match(/\A[a-zA-Z]*\z/).nil?
+    @lalphabets = ('a'..'z').to_a
+    @calphabets = ('A'..'Z').to_a
   end
 
   def caesar_cipher(some_string, shift_by)
-    some_string.each_char do |elem|
-      if isChar(elem) == false
+    alphabets = []
+    some_string.chars.uniq do |elem|
+      if ('A'..'Z').include? elem
+        alphabets = @calphabets
+      elsif ('a'..'z').include? elem
+        alphabets = @lalphabets
+      else
         next
       end
       new_elem = ""
-      index = (@alphabets.index(elem)).to_i
-      if index < @alphabets.length - shift_by
-        new_elem = @alphabets[index + shift_by]
+      index = (alphabets.index(elem)).to_i
+      if index < alphabets.length - shift_by
+        new_elem = alphabets[index + shift_by]
       else
-        num = index - (@alphabets.length - shift_by)
-        new_elem = @alphabets[num]
+        num = index - (alphabets.length - shift_by)
+        new_elem = alphabets[num]
       end
-      some_string = some_string.gsub(elem, new_elem)
+      print "replace #{elem} with #{new_elem} : "
+      some_string = some_string.sub(elem, new_elem)
+      puts some_string
     end
     puts some_string
   end
@@ -39,4 +51,4 @@ class BasicCryptography
 end
 
 myObj = BasicCryptography.new
-myObj.caesar_cipher("what is your name?", 5)
+myObj.caesar_cipher("What a string!", 5)
