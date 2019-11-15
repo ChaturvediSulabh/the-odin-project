@@ -28,6 +28,3 @@ class StockPicker
     print arr
   end
 end
-
-ob = StockPicker.new()
-ob.stockPicker([17,3,6,9,15,8,6,1,10])
