@@ -1,5 +1,4 @@
 class BubbleSort
-
   def bubble_sort(arr)
     sorted = true
     while sorted
@@ -20,10 +19,9 @@ class BubbleSort
     end
     arr
   end
-
 end
 
-# run = BubbleSort.new
-# print run.bubble_sort([4, 3, 78, 2, 0, 2])
-# puts ""
-# print run.bubble_sort_by(['hi', 'hello', 'hey']) { |left, right| left <=> right }
+run = BubbleSort.new
+print run.bubble_sort([4, 3, 78, 2, 0, 2])
+puts ""
+print run.bubble_sort_by(['hi', 'hello', 'hey']) { |left, right| left <=> right }
