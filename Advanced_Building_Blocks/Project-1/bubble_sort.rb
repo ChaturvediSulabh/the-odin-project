@@ -3,9 +3,7 @@ class BubbleSort
     sorted = true
     while sorted
       sorted = false
-      (arr.length - 1).times do |i|
-        (arr[i], arr[i + 1] = arr[i + 1], arr[i]; sorted = true) if arr[i] > arr[i + 1]
-      end
+      (arr.length - 1).times { |i| (arr[i], arr[i + 1] = arr[i + 1], arr[i]; sorted = true) if arr[i] > arr[i + 1] }
     end
     arr
   end

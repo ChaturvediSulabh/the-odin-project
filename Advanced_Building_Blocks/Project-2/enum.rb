@@ -38,12 +38,6 @@ module ENUMERABLE
     end
   end
 
-  def my_none
-  end
-
-  def my_count
-  end
-
   def my_map(arr)
     i = 0
     while i < arr.length
@@ -53,7 +47,8 @@ module ENUMERABLE
     arr
   end
 
-  def my_inject(arr)
+  def my_inject(accumulator)
+    accumulator unless block_given?
     i = 0
     while i < arr.length
       yield accumulator, arr[i]
@@ -64,6 +59,10 @@ end
 
 class Test
   include ENUMERABLE
+
+  def multiply_els(arr)
+    arr.my_inject(1) { |multiply, elem| puts multiply = multiply * elem }
+  end
 end
 
 arr = [1,2,3]
@@ -74,4 +73,4 @@ print run.my_select(arr) {|i| i > 1} # working
 puts ""
 puts run.my_all(arr) {|i| i > 1}
 puts run.my_map(arr) {|i| i*2} # Working
-run.my_inject(arr) {|sum, i| puts sum += i}
+run.multiply_els(arr)
