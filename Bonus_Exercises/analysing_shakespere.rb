@@ -18,13 +18,16 @@ class Analyse
     stats = Hash.new
     @doc = Nokogiri::XML(File.open(@file))
     speeches = @doc.xpath("//SPEECH")
-    speeches.each do |speech|
-      speaker = speech.to_s.scan(/<SPEAKER>.*<\/SPEAKER>/)
-      speaker = speaker[0].sub("<SPEAKER>", "").sub("</SPEAKER>", "")
-      lines = speech.to_s.scan(/<LINE>.*<\/LINE>/).length
-      stats[speaker] = lines
-      stats.has_key?(:speaker) ? stats[:speaker] += lines : stats[speaker] = lines
-    end
+    speeches.each { |speech| speaker_lines_count(speech, stats) }
     stats.each {|k, v| puts "#{v} #{k}"}
   end
+
+  def speaker_lines_count(speech, stats)
+    speaker = speech.to_s.scan(/<SPEAKER>.*<\/SPEAKER>/)
+    speaker = speaker[0].sub("<SPEAKER>", "").sub("</SPEAKER>", "")
+    lines = speech.to_s.scan(/<LINE>.*<\/LINE>/).length
+    stats[speaker] = lines
+    stats.has_key?(:speaker) ? stats[:speaker] += lines : stats[speaker] = lines
+  end
+
 end
